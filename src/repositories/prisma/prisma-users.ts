@@ -7,6 +7,7 @@ export class PrismaUsers implements Users {
             data: {
                 name: data.name,
                 email: data.email,
+                password: data.password,
                 patrimony: data.patrimony,
                 salary: data.salary
             }
