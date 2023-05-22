@@ -11,10 +11,10 @@ model User {
   id String @id @default(uuid())
 
   name      String
-  email     String  @unique
+  email     String @unique
   password  String
-  patrimony Decimal
-  salary    Decimal
+  patrimony Float
+  salary    Float
 
   @@map("users")
 }

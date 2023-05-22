@@ -13,4 +13,23 @@ export class PrismaUsers implements Users {
             }
         })
     }
+
+    async login(email: string): Promise<null | UserCreateData> {
+        const userRequest = await prisma.user.findUnique({
+            where: {
+                email,
+            }
+        })
+
+        const userReceived: UserCreateData = {
+            id: userRequest?.id ?? '',
+            name: userRequest?.name ?? '',
+            email: userRequest?.email ?? '',
+            password: userRequest?.password ?? '',
+            patrimony: userRequest?.patrimony ?? 0,
+            salary: userRequest?.salary ?? 0
+        }
+
+        return userReceived
+    }
 }
