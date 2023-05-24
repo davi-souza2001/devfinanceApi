@@ -20,7 +20,17 @@ export async function userRoutes(app: FastifyInstance) {
                 salary
             })
 
-            return res.status(201).send({ message: 'User created successfully!' })
+            const token = app.jwt.sign({
+                payload: {
+                    name,
+                    email,
+                    password,
+                    patrimony,
+                    salary
+                }
+            })
+
+            return res.status(201).send(token)
 
         } catch (error) {
             if (error instanceof Error) {
@@ -44,7 +54,10 @@ export async function userRoutes(app: FastifyInstance) {
             if (user?.email === '') {
                 return res.status(201).send({ message: 'User not found!' })
             } else {
-                return res.status(201).send(user)
+                const token = app.jwt.sign({
+                    payload: user
+                })
+                return res.status(201).send(token)
             }
 
         } catch (error) {
@@ -54,15 +67,5 @@ export async function userRoutes(app: FastifyInstance) {
                 return res.status(500).send({ message: 'Internal server error' })
             }
         }
-    })
-
-    app.get('/teste', async (req, res) => {
-        const token = app.jwt.sign({
-            payload: {
-                user: 'aaaa',
-                email: 'bbbbb'
-            }
-        })
-        return res.status(201).send({ message: token })
     })
 }
