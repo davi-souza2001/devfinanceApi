@@ -36,14 +36,12 @@ export class SubmitCreateTransferenceService {
             throw new Error('Expense is required!')
         }
 
-        const transference = await this.transferenceRepository.create({
+        await this.transferenceRepository.create({
             name,
             emailUser,
             recurrent,
             value,
             expense
         })
-
-        return transference
     }
 }

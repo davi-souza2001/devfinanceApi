@@ -13,4 +13,14 @@ export class PrismaTransference implements Transference {
             }
         })
     }
+
+    async getAll(email: string) {
+        const transferences = await prisma.transference.findMany({
+            where: {
+                emailUser: email
+            }
+        })
+
+        return transferences
+    }
 }
