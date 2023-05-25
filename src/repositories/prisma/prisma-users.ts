@@ -22,7 +22,6 @@ export class PrismaUsers implements Users {
         })
 
         const userReceived: UserCreateData = {
-            id: userRequest?.id ?? '',
             name: userRequest?.name ?? '',
             email: userRequest?.email ?? '',
             password: userRequest?.password ?? '',

@@ -18,3 +18,15 @@ model User {
 
   @@map("users")
 }
+
+model Transference {
+  id String @id @default(uuid())
+
+  name      String
+  value     Float
+  recurrent Boolean
+  emailUser String
+  expense   Boolean
+
+  @@map("transference")
+}

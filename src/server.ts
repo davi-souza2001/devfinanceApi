@@ -3,6 +3,7 @@ import jwt from '@fastify/jwt'
 import cors from '@fastify/cors'
 
 import { userRoutes } from './routes/user-routes'
+import { transferenceRoutes } from './routes/transference-routes'
 
 const app = fastify()
 
@@ -14,14 +15,7 @@ app.register(jwt, {
     secret: '123'
 })
 
-// app.addHook('preHandler', async (request, reply) => {
-//     try {
-//         await request.jwtVerify()
-//     } catch (err) {
-//         reply.send(err)
-//     }
-// })
-
 app.register(userRoutes)
+app.register(transferenceRoutes)
 
 app.listen({ port: 3333 }).then(() => console.log('Server is running on port 3333'))
