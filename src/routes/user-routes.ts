@@ -30,7 +30,7 @@ export async function userRoutes(app: FastifyInstance) {
                 }
             })
 
-            return res.status(201).send(token)
+            return res.status(201).send({ token })
 
         } catch (error) {
             if (error instanceof Error) {
@@ -57,7 +57,7 @@ export async function userRoutes(app: FastifyInstance) {
                 const token = app.jwt.sign({
                     payload: user
                 })
-                return res.status(201).send(token)
+                return res.status(201).send({ token })
             }
 
         } catch (error) {
