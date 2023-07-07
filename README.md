@@ -7,7 +7,7 @@
 
 DevFinance is an application for financial control, as well as managing your daily expenses.
 
-🚨 **This repository is dedicated exclusively to the interface.** 🚨
+🚨 **This repository is dedicated exclusively to the api.** 🚨
 
 ## Techs
 <div >
@@ -20,7 +20,7 @@ DevFinance is an application for financial control, as well as managing your dai
     <img alt="POSTGRESS" width="175" 
         src="https://camo.githubusercontent.com/95a15266c9b093e9070410fa62c8dcba6611e79edd738e0ded7ec5b52541d6c4/68747470733a2f2f696d672e736869656c64732e696f2f7374617469632f76313f7374796c653d666f722d7468652d6261646765266d6573736167653d506f737467726553514c26636f6c6f723d343136394531266c6f676f3d506f737467726553514c266c6f676f436f6c6f723d464646464646266c6162656c3d" />
 
-  Here used the routes model from **Next 13**, using with it the server-side components and the **App folder** as route managers.
+ Here I used **Fastify**, along with its modules for **Jwt tokens**. Therefore, it made the entire project configuration and route creation much easier.
 
 </div>
  
