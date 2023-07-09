@@ -24,7 +24,7 @@ export class SubmitCreateTransferenceService {
             throw new Error('Value is required!')
         }
 
-        if (!recurrent) {
+        if (typeof recurrent !== 'boolean') {
             throw new Error('Recurrent is required!')
         }
 
@@ -32,7 +32,7 @@ export class SubmitCreateTransferenceService {
             throw new Error('EmailUser is required!')
         }
 
-        if (!expense) {
+        if (typeof expense !== 'boolean') {
             throw new Error('Expense is required!')
         }
 
