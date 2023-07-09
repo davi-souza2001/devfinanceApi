@@ -31,4 +31,15 @@ export class PrismaUsers implements Users {
 
         return userReceived
     }
+
+    async updatePatrimony(email: string, patrimony: number) {
+        await prisma.user.update({
+            where: {
+                email
+            },
+            data: {
+                patrimony
+            }
+        })
+    }
 }
