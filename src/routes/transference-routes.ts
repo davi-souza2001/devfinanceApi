@@ -1,8 +1,10 @@
 import { FastifyInstance } from 'fastify'
 
 import { PrismaTransference } from '../repositories/prisma/prisma-transference'
+
 import { SubmitCreateTransferenceService, SubmitTransferenceServiceRequest } from '../services/expenses/create-transference-service'
 import { GetAllTransferenceService, GetAllTransferenceServiceRequest } from '../services/expenses/getAll-transference'
+import { SearchTransferenceService, SearchTransferenceServiceRequest } from '../services/expenses/search-transference'
 
 const prismaTransferenceRepository = new PrismaTransference()
 
@@ -44,6 +46,19 @@ export async function transferenceRoutes(app: FastifyInstance) {
 
         try {
             const transferences = await getAllTransferenceService.executeGet({ email })
+
+            return res.status(200).send(transferences)
+        } catch (error) {
+            return res.status(500).send({ message: 'Internal server error' })
+        }
+    })
+
+    app.get('/expenses/search/:email/:item', async (req, res) => {
+        const { email, item } = req.params as SearchTransferenceServiceRequest
+        const searchTransferenceService = new SearchTransferenceService(prismaTransferenceRepository)
+
+        try {
+            const transferences = await searchTransferenceService.executeSearch({ email, item })
 
             return res.status(200).send(transferences)
         } catch (error) {

@@ -9,4 +9,5 @@ export interface TransferenceCreateData {
 export interface Transference {
     create(data: TransferenceCreateData): Promise<void>
     getAll(email: string): Promise<TransferenceCreateData[]>
+    search(email: string, item: string): Promise<TransferenceCreateData[]>
 }
