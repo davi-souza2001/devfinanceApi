@@ -32,6 +32,19 @@ export class PrismaUsers implements Users {
         return userReceived
     }
 
+    async getPatrimony(email: string): Promise<number> {
+        const user = await prisma.user.findUnique({
+            where: {
+                email
+            },
+            select: {
+                patrimony: true
+            }
+        })
+
+        return user?.patrimony ?? 0
+    }
+
     async updatePatrimony(email: string, patrimony: number) {
         await prisma.user.update({
             where: {

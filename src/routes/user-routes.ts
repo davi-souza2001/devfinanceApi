@@ -4,6 +4,7 @@ import { PrismaUsers } from '../repositories/prisma/prisma-users'
 import { SubmitUserService, SubmitUserServiceRequest } from '../services/user/submit-user-service'
 import { LoginUserService, LoginUserServiceRequest } from '../services/user/login-user-service'
 import { UpdatePatrimonyServiceRequest, UpdatePatrimonyService } from '../services/user/update-patrimony-user-service'
+import { GetPatrimonyService } from '../services/user/get-patrimony-user-service'
 
 const prismaUserRepository = new PrismaUsers()
 
@@ -60,6 +61,24 @@ export async function userRoutes(app: FastifyInstance) {
                 })
                 return res.status(201).send({ token })
             }
+
+        } catch (error) {
+            if (error instanceof Error) {
+                return res.status(401).send({ message: error.message })
+            } else {
+                return res.status(500).send({ message: 'Internal server error' })
+            }
+        }
+    })
+
+    app.get('/user/getPatrimony/:email', async (req, res) => {
+        const { email } = req.params as { email: string }
+        const getPatrimonyService = new GetPatrimonyService(prismaUserRepository)
+
+        try {
+            const patrimony = await getPatrimonyService.executeGetPatrimony({ email })
+
+            return res.status(201).send({ patrimony })
 
         } catch (error) {
             if (error instanceof Error) {

@@ -9,5 +9,6 @@ export interface UserCreateData {
 export interface Users {
     create(data: UserCreateData): Promise<void>
     login(email: string): Promise<UserCreateData | null>
+    getPatrimony(email: string): Promise<number>
     updatePatrimony(email: string, patrimony: number): Promise<void>
 }
