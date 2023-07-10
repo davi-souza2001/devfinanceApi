@@ -54,7 +54,7 @@ export async function userRoutes(app: FastifyInstance) {
             })
 
             if (user?.email === '' || user === null) {
-                return res.status(201).send({ message: 'User not found, or wrong password!' })
+                return res.status(201).send({ message: 'User not found, please check your email and password.' })
             } else {
                 const token = app.jwt.sign({
                     payload: user
