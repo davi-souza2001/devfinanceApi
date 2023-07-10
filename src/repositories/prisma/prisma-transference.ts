@@ -34,4 +34,12 @@ export class PrismaTransference implements Transference {
 
         return transferences
     }
+
+    async delete(id: string) {
+        await prisma.transference.delete({
+            where: {
+                id: id
+            }
+        })
+    }
 }
