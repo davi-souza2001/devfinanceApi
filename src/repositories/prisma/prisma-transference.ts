@@ -9,7 +9,8 @@ export class PrismaTransference implements Transference {
                 emailUser: data.emailUser,
                 name: data.name,
                 recurrent: data.recurrent,
-                expense: data.expense
+                expense: data.expense,
+                date: data.date
             }
         })
     }

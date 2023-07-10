@@ -6,6 +6,7 @@ export interface SubmitTransferenceServiceRequest {
     recurrent: boolean
     emailUser: string
     expense: boolean
+    date: number
 }
 
 export class SubmitCreateTransferenceService {
@@ -14,7 +15,7 @@ export class SubmitCreateTransferenceService {
     ) { }
 
     async executeCreate(request: SubmitTransferenceServiceRequest) {
-        const { name, value, recurrent, emailUser, expense } = request
+        const { name, value, recurrent, emailUser, expense, date } = request
 
         if (!name) {
             throw new Error('Name is required!')
@@ -32,6 +33,10 @@ export class SubmitCreateTransferenceService {
             throw new Error('EmailUser is required!')
         }
 
+        if (!date) {
+            throw new Error('Date is required!')
+        }
+
         if (typeof expense !== 'boolean') {
             throw new Error('Expense is required!')
         }
@@ -41,7 +46,8 @@ export class SubmitCreateTransferenceService {
             emailUser,
             recurrent,
             value,
-            expense
+            expense,
+            date
         })
     }
 }

@@ -19,7 +19,7 @@ export async function transferenceRoutes(app: FastifyInstance) {
     })
 
     app.post('/expenses/create', async (req, res) => {
-        const { name, emailUser, recurrent, value, expense } = req.body as SubmitTransferenceServiceRequest
+        const { name, emailUser, recurrent, value, expense, date } = req.body as SubmitTransferenceServiceRequest
         const submitTransferenceService = new SubmitCreateTransferenceService(prismaTransferenceRepository)
 
         try {
@@ -28,7 +28,8 @@ export async function transferenceRoutes(app: FastifyInstance) {
                 name,
                 recurrent,
                 value,
-                expense
+                expense,
+                date
             })
 
             return res.status(201).send({ message: 'Transference submitted!' })

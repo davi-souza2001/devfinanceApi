@@ -4,6 +4,7 @@ export interface TransferenceCreateData {
     recurrent: boolean
     expense: boolean
     emailUser: string
+    date: number
 }
 
 export interface Transference {

@@ -27,6 +27,7 @@ model Transference {
   recurrent Boolean
   emailUser String
   expense   Boolean
+  date      Float
 
   @@map("transference")
 }
