@@ -21,7 +21,7 @@ export class LoginUserService {
             throw new Error('Password is required!')
         }
 
-        const user = await this.userRepository.login(email)
+        const user = await this.userRepository.login(email, password)
 
         return user
     }

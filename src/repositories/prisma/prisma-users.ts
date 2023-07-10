@@ -1,35 +1,43 @@
 import { prisma } from '../../prisma'
+import { comparePassword, encryptPassword } from '../../utils/EncryptPassword'
 import { UserCreateData, Users } from '../user'
 
 export class PrismaUsers implements Users {
     async create(data: UserCreateData) {
+        const passwordHash = encryptPassword(data.password)
+
         await prisma.user.create({
             data: {
                 name: data.name,
                 email: data.email,
-                password: data.password,
+                password: passwordHash,
                 patrimony: data.patrimony,
                 salary: data.salary
             }
         })
     }
 
-    async login(email: string): Promise<null | UserCreateData> {
+    async login(email: string, password: string): Promise<null | UserCreateData> {
         const userRequest = await prisma.user.findUnique({
             where: {
                 email,
             }
         })
 
-        const userReceived: UserCreateData = {
-            name: userRequest?.name ?? '',
-            email: userRequest?.email ?? '',
-            password: userRequest?.password ?? '',
-            patrimony: userRequest?.patrimony ?? 0,
-            salary: userRequest?.salary ?? 0
-        }
+        const passwordMatch = comparePassword(password, userRequest?.password ?? '')
+        if (passwordMatch) {
+            const userReceived: UserCreateData = {
+                name: userRequest?.name ?? '',
+                email: userRequest?.email ?? '',
+                password: userRequest?.password ?? '',
+                patrimony: userRequest?.patrimony ?? 0,
+                salary: userRequest?.salary ?? 0
+            }
 
-        return userReceived
+            return userReceived
+        } else {
+            return null
+        }
     }
 
     async getPatrimony(email: string): Promise<number> {
