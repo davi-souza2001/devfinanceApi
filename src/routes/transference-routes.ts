@@ -6,6 +6,7 @@ import { SubmitCreateTransferenceService, SubmitTransferenceServiceRequest } fro
 import { GetAllTransferenceService, GetAllTransferenceServiceRequest } from '../services/transferences/getAll-transference-service'
 import { SearchTransferenceService, SearchTransferenceServiceRequest } from '../services/transferences/search-transference-service'
 import { DeleteTransferenceService, DeleteTransferenceServiceRequest } from '../services/transferences/delete-transference-service'
+import { ResetTransferenceService, ResetTransferenceServiceRequest } from '../services/transferences/resetExpenses-transference.-service'
 
 const prismaTransferenceRepository = new PrismaTransference()
 
@@ -84,6 +85,23 @@ export async function transferenceRoutes(app: FastifyInstance) {
             await deleteTransferenceService.executeDelete({ id })
 
             res.status(201).send({ message: 'Transference deleted!' })
+        } catch (error) {
+            if (error instanceof Error) {
+                return res.status(401).send({ message: error.message })
+            } else {
+                return res.status(500).send({ message: 'Internal server error' })
+            }
+        }
+    })
+
+    app.post('/expenses/resetExpenses', async (req, res) => {
+        const { date, email } = req.body as ResetTransferenceServiceRequest
+        const resetTransferenceService = new ResetTransferenceService(prismaTransferenceRepository)
+
+        try {
+            await resetTransferenceService.executeReset({ date, email })
+
+            res.status(201).send({ message: 'Expenses reseted!' })
         } catch (error) {
             if (error instanceof Error) {
                 return res.status(401).send({ message: error.message })

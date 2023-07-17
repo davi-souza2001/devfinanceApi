@@ -6,6 +6,7 @@ CREATE TABLE "users" (
     "password" TEXT NOT NULL,
     "patrimony" DOUBLE PRECISION NOT NULL,
     "salary" DOUBLE PRECISION NOT NULL,
+    "cardLock" DOUBLE PRECISION NOT NULL,
 
     CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );

@@ -43,4 +43,14 @@ export class PrismaTransference implements Transference {
             }
         })
     }
+
+    async resetExpenses(email: string) {
+        await prisma.transference.deleteMany({
+            where: {
+                emailUser: email,
+                expense: true,
+                recurrent: false
+            }
+        })
+    }
 }
