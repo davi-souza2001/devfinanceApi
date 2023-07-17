@@ -63,4 +63,17 @@ export class PrismaUsers implements Users {
             }
         })
     }
+
+    async updateExpense(email: string, expense: number) {
+        await prisma.user.update({
+            where: {
+                email
+            },
+            data: {
+                patrimony: {
+                    decrement: expense
+                }
+            }
+        })
+    }
 }

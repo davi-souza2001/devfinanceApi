@@ -11,4 +11,5 @@ export interface Users {
     login(email: string, password: string): Promise<UserCreateData | null>
     getPatrimony(email: string): Promise<number>
     updatePatrimony(email: string, patrimony: number): Promise<void>
+    updateExpense(email: string, expense: number): Promise<void>
 }

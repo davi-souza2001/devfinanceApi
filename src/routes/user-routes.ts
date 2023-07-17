@@ -5,6 +5,7 @@ import { SubmitUserService, SubmitUserServiceRequest } from '../services/user/su
 import { LoginUserService, LoginUserServiceRequest } from '../services/user/login-user-service'
 import { UpdatePatrimonyServiceRequest, UpdatePatrimonyService } from '../services/user/update-patrimony-user-service'
 import { GetPatrimonyService } from '../services/user/get-patrimony-user-service'
+import { UpdateExpenseService, UpdateExpenseServiceRequest } from '../services/user/update-expense-service'
 
 const prismaUserRepository = new PrismaUsers()
 
@@ -100,6 +101,26 @@ export async function userRoutes(app: FastifyInstance) {
             })
 
             return res.status(201).send({ message: 'Patrimony updated!' })
+        } catch (error) {
+            if (error instanceof Error) {
+                return res.status(401).send({ message: error.message })
+            } else {
+                return res.status(500).send({ message: 'Internal server error' })
+            }
+        }
+    })
+
+    app.post('/user/updateExpense', async (req, res) => {
+        const { email, expense } = req.body as UpdateExpenseServiceRequest
+        const updateExpenseService = new UpdateExpenseService(prismaUserRepository)
+
+        try {
+            await updateExpenseService.executeUpdate({
+                email,
+                expense
+            })
+
+            return res.status(201).send({ message: 'Expense updated!' })
         } catch (error) {
             if (error instanceof Error) {
                 return res.status(401).send({ message: error.message })
